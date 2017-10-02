@@ -24,11 +24,11 @@ Port 22345
 
 # Logging
 #SyslogFacility AUTH
-#LogLevel INFO
+LogLevel VERBOSE
 
 # Authentication:
 
-#LoginGraceTime 2m
+LoginGraceTime 2m
 PermitRootLogin yes
 #StrictModes yes
 MaxAuthTries 5
@@ -37,7 +37,7 @@ MaxAuthTries 5
 #PubkeyAuthentication yes
 
 # Expect .ssh/authorized_keys2 to be disregarded by default in future.
-#AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2
+AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2
 
 #AuthorizedPrincipalsFile none
 
