@@ -2,4 +2,4 @@
 # /etc/init.d/ssh.
 
 # Options to pass to sshd
-SSHD_OPTS=
+SSHD_OPTS= -u0
