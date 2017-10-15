@@ -2,5 +2,10 @@
 # --- BEGIN PVE ---
 127.0.0.1 localhost.localnet localhost
 ::1 localhost.localnet localhost
-193.191.177.139 carl-vanderwegen.uclllabs.be carl-vanderwegen
+193.191.177.139 ns.carl-vanderwegen.sb.uclllabs.be carl-vanderwegen
+193.191.176.254 ns1.uclllabs.be ns1
+193.191.177.4 ns2.uclllabs.be ns2
+# student as ns3
+
+
 # --- END PVE ---
