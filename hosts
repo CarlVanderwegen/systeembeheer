@@ -3,4 +3,9 @@
 127.0.0.1 localhost.localnet localhost
 ::1 localhost.localnet localhost
 193.191.177.139 carl-vanderwegen.uclllabs.be carl-vanderwegen
+order hosts,bind
+multi on
+nospoof on
+spoofalert on
+
 # --- END PVE ---
