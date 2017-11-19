@@ -11,6 +11,8 @@
 # default value.
 
 Port 22345
+ListenAddress 193.191.177.139:22345
+ListenAddress [2001:6a8:2880:a077::8B]:22345
 #AddressFamily any
 #ListenAddress 0.0.0.0
 #ListenAddress ::
