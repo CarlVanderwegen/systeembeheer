@@ -4,7 +4,17 @@ if [ -n "$1" ]; then
     #zonefile
     sed "s/replaceme/$1/g" /etc/bind/.addon_named.conf.local >> /etc/bind/named.conf.local
     #add record in base file
-    echo "@     IN      NS      ns.$1.carl-vanderwegen.sb.uclllabs.be." >> /etc/bind/zones/db.carl-vanderwegen.sb.uclllabs.be 
+    printf "\n@     IN      NS      ns.$1.carl-vanderwegen.sb.uclllabs.be.\nns.$1     	IN      A   	193.191.177.139\n" >> /etc/bind/zones/db.carl-vanderwegen.sb.uclllabs.be 
+
+    SERIAL_NUM=$(grep -Po '\d+(?=\s+; Serial)' db.carl-vanderwegen.sb.uclllabs.be)
+    SERIAL_LIN=$(grep -Po '\s+; Serial' db.carl-vanderwegen.sb.uclllabs.be)
+    SERIAL_ALL=$(grep -Po '\d+\s+; Serial' db.carl-vanderwegen.sb.uclllabs.be)
+    NEW_NUM=$(("$SERIAL_NUM" + 1))
+    sed -i "s/$SERIAL_ALL/$NEW_NUM$SERIAL_LIN/g" db.carl-vanderwegen.sb.uclllabs.be
+
+
+
+    service bind9 restart
 else
-    echo "enter something pls"
+    printf "enter something pls"
 fi

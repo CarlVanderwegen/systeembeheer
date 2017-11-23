@@ -1,25 +1,16 @@
 #!/bin/bash
 ZONE=$(grep -Po '.{1,}(?=.carl-vanderwegen.sb.uclllabs.be)' <<< "$1")
 POL=$(cut -d'.' -f2 <<< "$1")
-EXIST=$(grep -P '^"$POL"\s' /etc/bind/zones/db.carl-vanderwegen.sb.uclllabs.be | wc -l)
+P1=$(cut -d'.' -f1 <<< "$1")
 MINPOL=$(cut -d'.' -f2- <<< "$1")
+EXIST=$(grep -P '^"$P1"\s' /etc/bind/zones/db."$MINPOL" | wc -l)
 
-if [ "$POL" ==  "carl-vanderwegen" ]; then
+if [ "$EXIST" > 0 ]; then
     cp -r /var/www/html/.defaulthost /var/www/html/"$ZONE"
     sed "s/replaceme/$ZONE/g" /etc/apache2/sites-available/.default_http.conf > /etc/apache2/sites-available/"$ZONE".conf
-    #sed -i '/# --- END PVE ---/i \
-    #193.191.177.139 "$1"/' /etc/hosts
     a2ensite "$ZONE".conf
     systemctl reload apache2
-    echo "\n$ZONE     IN      A   193.191.177.139" >> /etc/bind/zones/db.carl-vanderwegen.sb.uclllabs.be
-elif [ $EXIST -gt 0 ]; then
-    cp -r /var/www/html/.defaulthost /var/www/html/"$ZONE"
-    sed "s/replaceme/$ZONE/g" /etc/apache2/sites-available/.default_http.conf > /etc/apache2/sites-available/"$ZONE".conf
-    #sed -i '# --- END PVE ---/i \
-    #193.191.177.139 $1' /etc/hosts
-    a2ensite "$ZONE".conf
-    systemctl reload apache2
-    echo "$(cut -d'.' -f2 <<<"$1")      IN      A   193.191.177.139" >/etc/bind/zones/db."$POL".carl-vanderwegen.sb.uclllabs.be
 else
     echo "your zone doesn't exist"
+exit 1
 fi
