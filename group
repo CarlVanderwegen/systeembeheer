@@ -58,3 +58,5 @@ mysql:x:117:
 wireshark:x:118:
 dovecot:x:119:
 dovenull:x:120:
+vmail:x:5000:
+ftp:x:121:
