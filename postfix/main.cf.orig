@@ -9,11 +9,15 @@ append_dot_mydomain = no
 # Uncomment the next line to generate "delayed mail" warnings
 #delay_warning_time = 4h
 
+myhostname = mail.carl-vanderwegen.sb.uclllabs.be
+#myorigin = /etc/mailname
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
-mydestination = $myhostname, localhost.$mydomain, localhost
+mydestination = mail.carl-vanderwegen.sb.uclllabs.be, carl-vanderwegen.sb.uclllabs.be, localhost.$mydomain, localhost
 relayhost = 
-mynetworks = 127.0.0.0/8
+mynetworks = 127.0.0.0/8 [::1]/128 [fe80::]/10 [2001:6a8:2880:a077::8B]/64
 inet_interfaces = loopback-only
 recipient_delimiter = +
+inet_protocols = all
 
+smtp_bind_address6 = 2001:6a8:2880:a077::8B

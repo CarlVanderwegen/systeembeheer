@@ -9,15 +9,32 @@ append_dot_mydomain = no
 # Uncomment the next line to generate "delayed mail" warnings
 #delay_warning_time = 4h
 
-myhostname = mail.carl-vanderwegen.sb.uclllabs.be
+myhostname = mx.carl-vanderwegen.sb.uclllabs.be
 #myorigin = /etc/mailname
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
-mydestination = mail.carl-vanderwegen.sb.uclllabs.be, carl-vanderwegen.sb.uclllabs.be, localhost.$mydomain, localhost
+mydestination = mx.carl-vanderwegen.sb.uclllabs.be, carl-vanderwegen.sb.uclllabs.be, localhost.$mydomain, localhost
 relayhost = 
 mynetworks = 127.0.0.0/8 [::1]/128 [fe80::]/10 [2001:6a8:2880:a077::8B]/64
-inet_interfaces = loopback-only
+inet_interfaces = all
 recipient_delimiter = +
 inet_protocols = all
 
 smtp_bind_address6 = 2001:6a8:2880:a077::8B
+
+
+# TLS parameters
+smtpd_tls_cert_file=/etc/ssl/certs/dovecot.pem
+smtpd_tls_key_file=/etc/ssl/private/dovecot.pem
+smtpd_use_tls=yes
+smtpd_tls_auth_only = yes
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_auth_enable = yes
+smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unauth_destination
+virtual_transport = lmtp:unix:private/dovecot-lmtp
+
+
+virtual_mailbox_domains = mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf
+virtual_mailbox_maps = mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf
+virtual_alias_maps = mysql:/etc/postfix/mysql-virtual-alias-maps.cf
