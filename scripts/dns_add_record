@@ -3,12 +3,12 @@ if [ -n "$1" ]; then
     if [[ $1 = "-t" ]]; then
         case $2 in
             A )
-                printf "\n$3  IN  A  $4"  >> /etc/bind/zones/db."$5"
+                printf "\n$3  IN  A  $4\n"  >> /etc/bind/zones/db."$5"
                 ZONEFILE="/etc/bind/zones/db.$5"
                 ;;
             MX )
-                printf "\n@    IN MX $3" >> /etc/bind/zones/db."$5"
-                printf "\n$3   IN  A $4" >> /etc/bind/zones/db."$5"
+                printf "\n@    IN MX $3\n" >> /etc/bind/zones/db."$5"
+                printf "\n$3   IN  A $4\n" >> /etc/bind/zones/db."$5"
                 ZONEFILE="/etc/bind/zones/db.$5"
                 ;;
             CNAME )
@@ -18,7 +18,7 @@ if [ -n "$1" ]; then
                 ;;
         esac
     else
-        printf "$1"  IN  A  "$2"  >> /etc/bind/zones/db."$3"
+        printf "\n$1  IN  A  $2\n"  >> /etc/bind/zones/db."$3"
         ZONEFILE="/etc/bind/zones/db.$3"
     fi
     SERIAL_NUM=$(grep -Po '\d+(?=\s+; Serial)' "$ZONEFILE")
