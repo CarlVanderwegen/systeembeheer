@@ -1,15 +1,37 @@
-1 done
-2 used the key pair to connect to the git repository, i won't share the private key
-3 done 
-4 running windows, not linux
-5 added the school ip
-6 windows machine, won't work
-7 done
-8 done, added both home and laptop keys
-9 no clue what thiss means
-10 you are saying we get in trouble for this, i refuse to do this
-11 it kicks me after  60 min
-12 i will do this once http is done
-13 
-14 didn't work, we have to reset leia weekly
-15 can't get it working
+scp -P 22345 -i ~.ssh/id_rsa /etc/test.txt root@193.191.177.139:/etc/test.txt 
+ssh-keygen; ssh-copy-id -i ~.ssh/id_rsa root@193.191.177.139
+scp -P 22345 -i ~.ssh/id_rsa -r root@193.191.177.139:/etc /etc/server_etc
+seahorse-ssh-askpass ~.ssh/id_rsa
+5: ip changes a lot, but i did add it // echo '91.180.69.98	<MIVIXO>' > /etc/hosts
+rsync -avz /etc ~
+ssh root@193.191.177.139 reboot
+question unclear
+in /etc/ssh/ssh_config uncomment forwardX11 yes, same in putty (connect>ssh>x11) 
+
+echo "ClientAliveInterval 3600" >> /etc/ssh/sshd_config 
+ssh -f -L 80:192.0.0.1:80 root@193.191.177.139 sleep 10
+touch  ~/.ssh/config && echo "ssh -f -L 80:192.0.0.1:80 root@193.191.177.139 sleep 10"
+
+
+TUNNEL_NAMES=(
+ 'tunnel_local'
+ 'tunnel_remote'
+ )
+
+TUNNELS=(
+	"ssh -f -L 80:192.0.0.1:80 root@193.191.177.139 sleep 10"
+	"ssh -f -L 80:192.0.0.1:80 root@193.191.177.139 sleep 10"
+	)
+RECONNECT_TIMER=5
+LOGFILE="/var/log/ssh-tunnel-manager.log"
+
+
+end 13
+14 	TUNNEL_NAMES = "leia" tunnels = "ssh -f -L 22345:192.0.0.1:22345 r0262075@leia.uclllabs.be sleep 10"
+
+15
+
+sudo apt-get install sshfs
+mkdir ~/myserver/
+sudo sshfs -o allow_other,defer_permissions,IdentityFile=~/.ssh/id_rsa root@193.192.177.139:/root ~/myserver/
+echo "sshfs -o allow_other,defer_permissions,IdentityFile=~/.ssh/id_rsa root@193.192.177.139:/root ~/myserver/"
