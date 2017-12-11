@@ -8,39 +8,53 @@ append_dot_mydomain = no
 
 # Uncomment the next line to generate "delayed mail" warnings
 #delay_warning_time = 4h
+readme_directory = no
 
 myhostname = mx.carl-vanderwegen.sb.uclllabs.be
 myorigin = /etc/mailname
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
-mydestination = mx.carl-vanderwegen.sb.uclllabs.be, carl-vanderwegen.sb.uclllabs.be, localhost.carl-vanderwegen.sb.uclllabs.be, localhost
+mydestination = localhost
+#mydestination = mx.carl-vanderwegen.sb.uclllabs.be, carl-vanderwegen.sb.uclllabs.be, localhost.carl-vanderwegen.sb.uclllabs.be, localhost
 relayhost = 
-mynetworks = 127.0.0.0/8 [::1]/128 [fe80::]/10 [2001:6a8:2880:a077::8B]/64 193.191.177.139
+mynetworks = 127.0.0.0/8 [::1]/128 [fe80::]/10 
+#[2001:6a8:2880:a077::8B]/64 193.191.177.139
+mailbox_size_limit = 0
 inet_interfaces = all
 recipient_delimiter = +
 inet_protocols = all
-
 smtp_bind_address6 = 2001:6a8:2880:a077::8B
 
 
 # TLS parameters
-smtpd_tls_cert_file=/etc/ssl/certs/mailcert.pem
-smtpd_tls_key_file=/etc/ssl/private/mail.key
+smtpd_tls_cert_file = /etc/postfix/server.pem
+smtpd_tls_key_file = $smtpd_tls_cert_file
 smtpd_use_tls=yes
 smtpd_tls_auth_only = yes
-smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
-smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+
+#smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+#smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 smtpd_tls_security_level=may
 smtpd_tls_protocols = !SSLv2, !SSLv3
+
+
 smtpd_sasl_type = dovecot
 smtpd_sasl_path = private/auth
 smtpd_sasl_auth_enable = yes
-smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unauth_destination
+smtpd_recipient_restrictions = 
+	permit_sasl_authenticated, 
+	permit_mynetworks, 
+	reject_unauth_destination
+
+#local_recipient_maps = proxy:unix:passwd.byname $alias_maps
+
+#use lmtp
 virtual_transport = lmtp:unix:private/dovecot-lmtp
 
 
+## Tells Postfix you're using MySQL
 virtual_mailbox_domains = mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf
 virtual_mailbox_maps = mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf
 virtual_alias_maps = mysql:/etc/postfix/mysql-virtual-alias-maps.cf
-myorigin = /etc/mailname
-mailbox_size_limit = 0
+
+
