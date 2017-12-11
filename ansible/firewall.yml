@@ -1,0 +1,21 @@
+---
+- hosts: apache
+  become: sudo
+  tasks:
+    #- name: install apache2
+    #  yum: name={{item}} state=installed
+    #  with_items:
+    #     - iptables
+    #     - ip6tables
+    - copy:
+        src: /etc/ansible/firewall_dirs/scripts/
+        dest: /var/www/
+    - copy:
+        src: /etc/ansible/firewall_dirs/preup-firewall
+        dest: /etc/network/if-pre-up.d/firewall
+    - copy:
+        src: /etc/ansible/firewall_dirs/init.d-firewall
+        dest: /etc/network/if-pre-up.d/firewall
+    - name start firewall
+	shell: systemctl stop firewall.service
+	shell: systemctl start firewall.service
