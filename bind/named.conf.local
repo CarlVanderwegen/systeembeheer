@@ -1,0 +1,39 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "carl-vanderwegen.sb.uclllabs.be" {
+	type master;
+	file "/etc/bind/zones/db.carl-vanderwegen.sb.uclllabs.be";
+	notify yes;
+	allow-transfer { 193.191.176.254;  193.191.177.4; 193.191.177.160; 193.191.177.254; 193.191.177.138; 193.191.177.160;193.191.177.207;};
+
+};
+zone "brecht-decuyper.sb.uclllabs.be" {
+	type slave;
+	file "/etc/bind/zones/db.brecht-decuyper.sb.uclllabs.be";
+	masters {193.191.177.138;};
+};
+
+zone "kelvin-schoofs.sb.uclllabs.be" {
+	type slave;
+	file "/etc/bind/zones/db.kelvin-schoofs.sb.uclllabs.be";
+	masters {193.191.177.160;};
+};
+zone "ben-desmet.sb.uclllabs.be" {
+	type slave;
+	file "/etc/bind/zones/db.ben-desmet.sb.uclllabs.be";
+	masters {193.191.177.207;};
+};
+
+
+zone "bash.carl-vanderwegen.sb.uclllabs.be" {
+        type master;
+        file "/etc/bind/zones/db.bash.carl-vanderwegen.sb.uclllabs.be";
+	notify yes;
+	allow-transfer { 193.191.176.254;  193.191.177.4; 193.191.177.160; 193.191.177.254; 193.191.177.138; };
+};

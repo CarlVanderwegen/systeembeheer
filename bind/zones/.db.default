@@ -1,0 +1,22 @@
+;
+; BIND data file for local loopback interface
+;
+$ORIGIN replaceme.carl-vanderwegen.sb.uclllabs.be.
+$TTL	300
+@	IN	SOA	ns.replaceme.carl-vanderwegen.sb.uclllabs.be. admin@replaceme.carl-vanderwegen.sb.uclllabs.be. (
+			      1		; Serial
+			 604800		; Refresh
+			  3600		; Retry
+			2419200		; Expire
+			 300 )	; Negative Cache TTL
+;
+
+@		IN      NS      ns.replaceme.carl-vanderwegen.sb.uclllabs.be.
+
+@		IN      NS      ns.carl-vanderwegen.sb.uclllabs.be.
+@		IN      NS      ns1.uclllabs.be.
+@		IN      NS      ns2.uclllabs.be.
+@		IN      NS      ns.brecht-decuyper.sb.uclllabs.be. 
+
+ns		IN	A	193.191.177.139
+@               IN      A       193.191.177.139
