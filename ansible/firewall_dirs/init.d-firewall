@@ -1,0 +1,26 @@
+#!/bin/sh -
+if [ -n "$1" ]; then
+	case $1 in
+		start )
+				iptables-restore < /etc/scripts/iptables.rules
+				ip6tables-restore < /etc/scripts/ip6tables.rules
+			;;
+		stop )
+				iptables-restore < /etc/scripts/iptables_empty.rules
+				ip6tables-restore < /etc/scripts/ip6tables_empty.rules		
+			;;
+		restart )
+				iptables-restore < /etc/scripts/iptables_empty.rules
+				ip6tables-restore < /etc/scripts/ip6tables_empty.rules	
+				iptables-restore < /etc/scripts/iptables.rules
+				ip6tables-restore < /etc/scripts/ip6tables.rules
+
+			;;
+			*)
+				echo "Usage: $0 {start|stop|restart|status}"
+            exit 1
+	esac
+else 
+	echo "no parameter passed, use {start|stop|restart}"
+	exit 1
+fi
